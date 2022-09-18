@@ -1,28 +1,28 @@
-import axios from "axios";
+import {Axios} from '../../Axios'
 import { GET_CARDS, FILTER_CARDS_BY_TITLE, FILTER_CARDS_BY_REGION, FILTER_CARDS_BY_CATEGORY } from "./ActionTypes";
 
 export const getCards = () => (dispatch) => {
-  axios
+  Axios
     .get("/api/cards/allCards")
     .then((res) => dispatch({ type: GET_CARDS, payload: res.data }))
     .catch((err) => console.log(err));
 };
 
 export const addCard = (newCard) => (dispatch) => {
-  axios
+  Axios
     .post("/api/cards/add", newCard)
     .then((res) => dispatch(getCards()))
     .catch((err) => console.log('err', err))
 };
 
 export const deleteCard = (idCard) => (dispatch) => {
-  axios
+  Axios
     .delete(`/api/cards/delete/${idCard}`)
     .then((res) => dispatch(getCards()))
     .catch((err) => console.log(err));
 };
 export const editCard = (idCard, editedCard) => (dispatch) => {
-  axios
+  Axios
     .put(`/api/cards/edit/${idCard}`, editedCard)
     .then((res) => dispatch(getCards()))
     .catch((err) => console.log(err));
@@ -52,14 +52,14 @@ export const filterCardsByCategory = payload => {
 }
 
 export const subscribe = (idCard, idUser) => (dispatch) => {
-  axios
+  Axios
     .put(`/api/cards/subscribe/${idCard}/${idUser}`)
     .then((res) => dispatch(getCards()))
     .catch((err) => console.log(err));
 };
 
 export const unsubscribe = (idCard, idUser) => (dispatch) => {
-  axios
+  Axios
     .put(`/api/cards/unsubscribe/${idCard}/${idUser}`)
     .then((res) => dispatch(getCards()))
     .catch((err) => console.log(err));
